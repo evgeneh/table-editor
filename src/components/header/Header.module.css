@@ -1,0 +1,32 @@
+.menuBar {
+    padding: 20px 0;
+    background: #fff;
+    margin: 0;
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.mainMenu {
+    padding-top: 25px;
+    list-style: none;
+    margin: auto 0;
+    float: right;
+    color: #212121;
+}
+
+.mainMenu__item {
+    display: inline;
+    margin-left: 35px;}
+
+.mainMenu__item a{
+    text-decoration: none;
+    color: #212121; }
+
+.mainMenu__item a:hover{
+    color: #868686; }
+
+.header{
+    text-align: center;
+    background-size: cover;
+    color: white;
+    padding: 70px 0;}

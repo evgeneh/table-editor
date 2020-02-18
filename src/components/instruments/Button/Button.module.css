@@ -1,0 +1,22 @@
+.button {
+    cursor: pointer;
+    padding: 10px 25px;
+    margin: 0 10px;
+    color: white;
+    transition: 0.3s;
+}
+
+.button_empty {
+    background: transparent;
+    border: 2px solid white;
+}
+.button_selected {
+    background: #008970;
+    border: 2px solid  #008970;
+}
+
+.button_selected:hover,
+.button_empty:hover {
+    background: #00554a;
+    border: 2px solid #00554a;
+}
