@@ -6,11 +6,11 @@ import Col from '../styled/Col'
 
 import style from "./Header.module.css"
 
-type HeaderType = {
+type HeaderPropsType = {
   children: React.ReactNode
 }
 
-const Header = ({children}: HeaderType) => {
+const Header: React.FC<HeaderPropsType> = ({children}) => {
 
     return (
 
