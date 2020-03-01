@@ -10,6 +10,7 @@ export interface IGroup {
 }
 
 export interface ICreateTournamentState {
+    variantOfTournament: TournamentVariants
     name: string;
     groupsCount: number;
     teamsCount: number;
@@ -17,3 +18,6 @@ export interface ICreateTournamentState {
     homeAway: boolean;
     groups: Array<IGroup>
 }
+
+export enum TournamentVariants  { PO, PO_GR, LIG }
+
