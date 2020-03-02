@@ -9,14 +9,18 @@ export interface IGroup {
     teams: Array<ITeam | null>
 }
 
-export interface ICreateTournamentState {
-    variantOfTournament: TournamentVariants
+export interface ITournament {
     name: string;
     groupsCount: number;
     teamsCount: number;
     playOffCount: number;
     homeAway: boolean;
     groups: Array<IGroup>
+}
+
+export interface ICreateTournamentState {
+    variantOfTournament: TournamentVariants,
+    tournament: ITournament
 }
 
 export enum TournamentVariants  { PO, PO_GR, LIG }

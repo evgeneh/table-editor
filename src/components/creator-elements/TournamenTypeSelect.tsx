@@ -8,52 +8,82 @@ import styled from "styled-components";
 import image_rg from "../../media/gr.jpg"
 import image_rg_po from "../../media/gr_po.jpg"
 import image_po from "../../media/po.jpg"
+import {TournamentVariants} from "../../store/IStore";
 
 interface Props  {
     isSelected: boolean
 }
 
+const TournTypeImg = styled.img`
+  width: 100px;
+  transition: .4s;
+
+  &:hover{
+    transform: scale(1.2);
+}
+`
+
 const SelectionBlock = styled.div<Props>`
     text-align: center;
     color: black;
-    img {
-        width: 100px;
-    }
-    h3 {
-    border: ${p => (p.isSelected) ? "2px solid red" : "none"}
+    margin: 5px;
+    h4 {
+    margin: 10px 0;
+    border: ${p => (p.isSelected) ? "2px solid red" : "2px solid white"}
     }
 `;
 
-export type SelectionElementType = {
-    isSelected: boolean
-    imageLink: string
-    text: string
+export interface SelectionElementType extends React.HTMLAttributes<HTMLDivElement> {
+    isSelected: boolean;
+    imageLink: string;
+    text: string;
     description: string
 }
 
-const SelectionElement: React.FC<SelectionElementType> = ({isSelected, imageLink, text, description}) => {
+const SelectionElement: React.FC<SelectionElementType> = ({isSelected, imageLink, text, description, onClick}) => {
     return (
-        <SelectionBlock isSelected={isSelected}>
-            <img src={imageLink} alt={text + " logo"} />
-            <h3>{text}</h3>
-            <p>{description}</p>
+        <SelectionBlock isSelected={isSelected} onClick={onClick}>
+            <TournTypeImg src={imageLink} alt={text + " logo"} />
+            <h4>{text}</h4>
+            <p className={"p-2"}>{description}</p>
 
         </SelectionBlock>
     )
 }
 
-const TournamentTypeSelect = () => {
+type TournamentVariantSelectProps = {
+    selectedVariant?: TournamentVariants
+    tournamentVariantSelect?: ((item: TournamentVariants) => void) | null
+}
+
+
+const TournamentVariantSelect: React.FC<TournamentVariantSelectProps> = ({selectedVariant = TournamentVariants.PO_GR, tournamentVariantSelect = null }) => {
+
+    const onTournamentSelect =  (value: TournamentVariants): void => {
+        console.log('clicked')
+        if (tournamentVariantSelect !== null)
+            tournamentVariantSelect(value)
+    }
 
     return(
         <Row>
+            <div className="spinner-border text-success" role="status">
+                <span className="sr-only">Loading...</span>
+            </div>
             <Col col={'col__fr3'}>
 
-                <SelectionElement isSelected={false} imageLink={image_rg} text={"Groups and PlayOff"}
+                <SelectionElement isSelected={selectedVariant === TournamentVariants.PO_GR}
+                                  onClick={onTournamentSelect.bind(null, TournamentVariants.PO_GR)}
+                                  imageLink={image_rg} text={"Groups and PlayOff"}
                                   description={"Select count of groups and teams which promote to play off stadie"}/>
-                <SelectionElement isSelected={true} imageLink={image_rg_po} text={"Groups and PlayOff"}
-                                  description={"Select count of groups and teams which promote to play off stadie"}/>
-                <SelectionElement isSelected={false} imageLink={image_po} text={"Groups and PlayOff"}
-                                  description={"Select count of groups and teams which promote to play off stadie"}/>
+                <SelectionElement isSelected={selectedVariant === TournamentVariants.PO}
+                                  onClick={onTournamentSelect.bind(null, TournamentVariants.PO)}
+                                  imageLink={image_rg_po} text={"Only PlayOff"}
+                                  description={"Select head to head compitition in play off stadie"}/>
+                <SelectionElement isSelected={selectedVariant === TournamentVariants.LIG}
+                                  onClick={onTournamentSelect.bind(null, TournamentVariants.LIG)}
+                                  imageLink={image_po} text={"League without PlayOff"}
+                                  description={"Select a league tournament, create your own league table"}/>
 
             </Col>
         </Row>
@@ -61,4 +91,4 @@ const TournamentTypeSelect = () => {
  )}
 
 
-export default TournamentTypeSelect
+export default TournamentVariantSelect

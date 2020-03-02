@@ -5,7 +5,7 @@ import Row from "../styled/Row";
 
 import {Section} from "../styled/Styled"
 
-import TournamentTypeSelect from "../creator-elements/TournamenTypeSelect"
+import TournamentVariantSelect from "../creator-elements/TournamenTypeSelect"
 
 const Excursion = () => {
 
@@ -17,7 +17,7 @@ const Excursion = () => {
                     <h3>You can crate three types of tournament</h3>
                 </Col>
             </Row>
-            <TournamentTypeSelect />
+            <TournamentVariantSelect />
         </Section>
  )}
 

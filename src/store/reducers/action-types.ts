@@ -16,9 +16,11 @@ interface SetGroupsCountAction {
     groupsCount: number
 }
 
-interface setVariantOfTournament {
+export interface setVariantOfTournamentAction {
     type: typeof SET_TOURNAMENT_TYPE
     variantOfTournament: TournamentVariants
 }
 
-export type CreateTournamentActionType = AddTournamentNameAction | SetGroupsCountAction | setVariantOfTournament
+
+
+export type CreateTournamentActionType = AddTournamentNameAction | SetGroupsCountAction | setVariantOfTournamentAction

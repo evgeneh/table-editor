@@ -8,6 +8,6 @@ const rootReducer = Redux.combineReducers({
 
 type rootReducerType = typeof rootReducer
 
-export type RootStateType = ReturnType<rootReducerType>
+export type RootStateType = ReturnType<typeof rootReducer>
 
 export default Redux.createStore(rootReducer)
