@@ -3,6 +3,8 @@ import * as React from 'react';
 import {setGroupsCount, setVariantOfTournament} from "../../store/reducers/create-tournament/create-tournament-reducer";
 import {ITournament, TournamentVariants} from "../../store/IStore";
 
+import {CreateTableBadgeHeader, CreateTableBadgeItem} from './creator-items/GroupsConfigurateItems'
+
 import Col from '../styled/Col'
 import Row from '../styled/Row'
 
@@ -19,36 +21,7 @@ type GroupsConfigureProps = {
     setGroupsCount: typeof setGroupsCount
 }
 
-type CreateTableBadgeHType = {
-    groupName: string
-}
-const CreateTableBadgeHeader: React.FC<CreateTableBadgeHType> = ({groupName}) => {
-    return (
-        <div className='list-group-item-active bg-success rounded-top'>
-            <span className='glyphicon glyph icon-star'></span>
-            <span className='text-white '>{groupName}</span>
-        </div>
-    )
-}
-
-type CreateTableBadgeItemType = {
-    badge: string | null,
-    name: string | null
-}
-const CreateTableBadgeItem: React.FC<CreateTableBadgeItemType> = ({badge, name}) => {
-    return (
-        <div className='list-group-item align-items-xl-start'>
-            <button>+</button>
-            <span className='glyph-icon glyph icon-star'>{badge || <i>&nbsp; team is not selected!</i>}</span>
-            <span className='text-white'>name</span>
-        </div>
-    )
-}
-
-
 const GroupsConfigure: React.FC<GroupsConfigureProps> = ({tournament, variant, setGroupsCount}) => {
-
-
     const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         setGroupsCount(parseInt(e.currentTarget.value))
     }
@@ -67,13 +40,14 @@ const GroupsConfigure: React.FC<GroupsConfigureProps> = ({tournament, variant, s
 
                     </div>
                 </Col>
-                <Col col=' col-6'>
+                <Col col='col__auto_fr'>
                     {
-                        tournament.groups.map((group, index) => {
+                        tournament.groups.map((group, groupIndex) => {
+                            if (groupIndex < tournament.groupsCount)
                             return (
                                 <TableEditor>
                                     <div className='list-group'>
-                                        <CreateTableBadgeHeader groupName={'Group ' + index}/>
+                                        <CreateTableBadgeHeader groupName={'Group ' + (groupIndex + 1)}/>
                                         {
                                             group.teams.map( (team, index)=> {
                                                     if (index < group.teamsCount)
