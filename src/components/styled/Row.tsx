@@ -5,6 +5,7 @@ export interface JustChild {
 }
 
 const divStyle = {
+    padding: '10px 0',
     display: 'grid',
     justifyContent: 'center',
 }

@@ -25,3 +25,9 @@ export interface ICreateTournamentState {
 
 export enum TournamentVariants  { PO, PO_GR, LIG }
 
+export interface IAuth {
+    isAuth: boolean
+    login: string
+    myId: number | null
+}
+

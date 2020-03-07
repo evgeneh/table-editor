@@ -2,6 +2,7 @@ import * as React from 'react';
 
 import Col from "../styled/Col";
 import Row from "../styled/Row";
+import {Section} from "../styled/Styled"
 
 import styled from "styled-components";
 
@@ -28,7 +29,7 @@ const SelectionBlock = styled.div<Props>`
     color: black;
     margin: 5px;
     h4 {
-    margin: 10px 0;
+    margin: 15px 0;
     border: ${p => (p.isSelected) ? "2px solid red" : "2px solid white"}
     }
 `;
@@ -57,38 +58,45 @@ type TournamentVariantSelectProps = {
 }
 
 
-const TournamentVariantSelect: React.FC<TournamentVariantSelectProps> = ({selectedVariant = TournamentVariants.PO_GR, tournamentVariantSelect = null }) => {
+const TournamentVariantSelect: React.FC<TournamentVariantSelectProps> = ({selectedVariant , tournamentVariantSelect = null}) => {
 
-    const onTournamentSelect =  (value: TournamentVariants): void => {
-        console.log('clicked')
+    const onTournamentSelect = (value: TournamentVariants): void => {
         if (tournamentVariantSelect !== null)
             tournamentVariantSelect(value)
     }
 
-    return(
-        <Row>
-            <div className="spinner-border text-success" role="status">
-                <span className="sr-only">Loading...</span>
-            </div>
-            <Col col={'col__fr3'}>
+    return (
+        <Section>
+            {
+                ( selectedVariant !== undefined) &&
+            <Row>
+                <Col col={'col__fr'}>
+                    <h3>Select variant of your tournament first</h3>
+                </Col>
+            </Row>
+            }
+            <Row>
+                <Col col={'col__fr3'}>
 
-                <SelectionElement isSelected={selectedVariant === TournamentVariants.PO_GR}
-                                  onClick={onTournamentSelect.bind(null, TournamentVariants.PO_GR)}
-                                  imageLink={image_rg} text={"Groups and PlayOff"}
-                                  description={"Select count of groups and teams which promote to play off stadie"}/>
-                <SelectionElement isSelected={selectedVariant === TournamentVariants.PO}
-                                  onClick={onTournamentSelect.bind(null, TournamentVariants.PO)}
-                                  imageLink={image_rg_po} text={"Only PlayOff"}
-                                  description={"Select head to head compitition in play off stadie"}/>
-                <SelectionElement isSelected={selectedVariant === TournamentVariants.LIG}
-                                  onClick={onTournamentSelect.bind(null, TournamentVariants.LIG)}
-                                  imageLink={image_po} text={"League without PlayOff"}
-                                  description={"Select a league tournament, create your own league table"}/>
+                    <SelectionElement isSelected={selectedVariant === TournamentVariants.PO_GR}
+                                      onClick={onTournamentSelect.bind(null, TournamentVariants.PO_GR)}
+                                      imageLink={image_rg} text={"Groups and PlayOff"}
+                                      description={"Select count of groups and teams which promote to play off stage"}/>
+                    <SelectionElement isSelected={selectedVariant === TournamentVariants.PO}
+                                      onClick={onTournamentSelect.bind(null, TournamentVariants.PO)}
+                                      imageLink={image_rg_po} text={"Only PlayOff"}
+                                      description={"Select head to head competition in play off stage"}/>
+                    <SelectionElement isSelected={selectedVariant === TournamentVariants.LIG}
+                                      onClick={onTournamentSelect.bind(null, TournamentVariants.LIG)}
+                                      imageLink={image_po} text={"League without PlayOff"}
+                                      description={"Select a league tournament, create your own league table"}/>
 
-            </Col>
-        </Row>
+                </Col>
+            </Row>
+        </Section>
 
- )}
+    )
+}
 
 
 export default TournamentVariantSelect

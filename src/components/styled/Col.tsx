@@ -3,10 +3,10 @@ import * as React from 'react';
 
 export type ColType = {
     children: React.ReactNode
-    col: 'col__fr' | 'col__auto_fr' | 'col__fr3' | 'col__fr2_fr1'
+    col: 'col__fr' | 'col__auto_fr' | 'col__fr3' | 'col__fr2_fr1' | ' col-6'
 }
 
-const Row = ({children, col}: ColType)  => {
+const Col = ({children, col}: ColType)  => {
 
   return (
       <div className={"col " + col}>
@@ -17,4 +17,4 @@ const Row = ({children, col}: ColType)  => {
   )
 }
 
-export default Row;
+export default Col;

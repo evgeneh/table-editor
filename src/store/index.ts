@@ -1,9 +1,10 @@
 import * as Redux from 'redux';
-//import thunk from 'redux-thunk';
-import { createTournamentReducer} from './reducers/create-tournament-reducer'
+import { createTournamentReducer} from './reducers/create-tournament/create-tournament-reducer'
+import {authReducer} from "./reducers/auth/auth-reducer";
 
 const rootReducer = Redux.combineReducers({
-    createTournament: createTournamentReducer
+    createTournament: createTournamentReducer,
+    auth: authReducer
 })
 
 type rootReducerType = typeof rootReducer
