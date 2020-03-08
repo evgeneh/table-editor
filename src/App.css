@@ -44,6 +44,14 @@
   width: auto;
 }
 
+.col__fr2
+{
+  grid-gap: 5px;
+  justify-content: center;
+  grid-template-columns: auto auto;
+  width: auto;
+}
+
 
 @media screen and (max-width: 1200px) {
   .col {
@@ -53,5 +61,10 @@
 
   .col_fr2_fr1 {
     grid-template-columns: auto;
+  }
+
+  .col__fr2 {
+    grid-template-columns: auto;
+    justify-content: center;
   }
 }

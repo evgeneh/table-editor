@@ -11,7 +11,7 @@ import Row from '../styled/Row'
 import styled from "styled-components";
 
 const TableEditor = styled.div`
-  width: 350px;
+  width: 400px;
   padding: 20px 0;
 `
 
@@ -40,7 +40,7 @@ const GroupsConfigure: React.FC<GroupsConfigureProps> = ({tournament, variant, s
 
                     </div>
                 </Col>
-                <Col col='col__auto_fr'>
+                <Col col='col__fr2'>
                     {
                         tournament.groups.map((group, groupIndex) => {
                             if (groupIndex < tournament.groupsCount)
