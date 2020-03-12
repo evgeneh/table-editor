@@ -4,6 +4,7 @@ export interface ITeam {
 }
 
 export interface IGroup {
+    groupId: number;
     teamsCount: number;
     teamsGoToPlayOff: number;
     teams: Array<ITeam | null>

@@ -2,6 +2,7 @@ import {ICreateTournamentState, IGroup, ITeam, TournamentVariants} from "../../I
 import {ADD_TOURNAMENT_NAME, CreateTournamentActionType, SET_GROUPS_COUNT, SET_TOURNAMENT_TYPE} from "./action-types";
 
 let initialGroup: IGroup =  {
+    groupId: 0,
     teamsCount: 4,
     teamsGoToPlayOff: 2,
     teams: [null, null, null, null]
@@ -12,11 +13,15 @@ let initialState : ICreateTournamentState = {
     tournament: {
         name: "",
         groups: [
-            {    teamsCount: 4,
+            {
+                groupId: 0,
+                teamsCount: 4,
                  teamsGoToPlayOff: 2,
                  teams: [null, null, null, null]
             },
-            {    teamsCount: 4,
+            {
+                groupId: 1,
+                teamsCount: 4,
                 teamsGoToPlayOff: 2,
                 teams: [null, null, null, null]
             }
@@ -35,7 +40,10 @@ export const createTournamentReducer = (state = initialState, action: CreateTour
         case SET_GROUPS_COUNT:
             let groups = state.tournament.groups ;
             if (action.groupsCount > state.tournament.groupsCount)
+            {
                 groups.push(initialGroup)
+                groups[groups.length-1].groupId = groups.length
+            }
             return {...state, tournament: { ...state.tournament, groupsCount: action.groupsCount, groups: groups} }
         case SET_TOURNAMENT_TYPE:
             let groupCount = state.tournament.groupsCount

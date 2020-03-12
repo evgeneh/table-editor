@@ -45,13 +45,13 @@ const GroupsConfigure: React.FC<GroupsConfigureProps> = ({tournament, variant, s
                         tournament.groups.map((group, groupIndex) => {
                             if (groupIndex < tournament.groupsCount)
                             return (
-                                <TableEditor>
+                                <TableEditor key={group.groupId}>
                                     <div className='list-group'>
                                         <CreateTableBadgeHeader groupName={'Group ' + (groupIndex + 1)}/>
                                         {
                                             group.teams.map( (team, index)=> {
                                                     if (index < group.teamsCount)
-                                                        return <CreateTableBadgeItem badge={team?.badge || null} name={team?.name || null} />
+                                                        return <CreateTableBadgeItem key={index} badge={team?.badge || null} name={team?.name || null} />
                                                 }
                                             )
                                         }
