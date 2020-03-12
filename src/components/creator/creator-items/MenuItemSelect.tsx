@@ -2,6 +2,8 @@ import * as React from 'react';
 import plus from 'bootstrap-icons/icons/plus.svg'
 
 import styled from 'styled-components'
+import {RootStateType} from "../../../store";
+import {connect, ConnectedProps} from "react-redux";
 
 const MenuHiddenBody = styled.div`
     position: fixed;
@@ -27,8 +29,11 @@ type MenuTeamType = {
     closeMenu: (isShow: boolean) => void
 }
 
-const MenuTeamSelect: React.FC<MenuTeamType> = ({closeMenu}) => {
-    let leagues = [{name: "APL", id: 2}, {name: "La Liga", id: 3}, {name: "Bundesliga", id: 3}, {name: "Serie A", id: 4}, {name: "International", id: 1}]
+const MenuTeamSelect: React.FC<MenuTeamType & ReduxProps> = ({closeMenu, ...props}) => {
+    const [listShow, setListShow] = React.useState(false)
+
+
+
     return (
         <>
             <MenuHiddenBody onClick={() => {
@@ -38,20 +43,20 @@ const MenuTeamSelect: React.FC<MenuTeamType> = ({closeMenu}) => {
                 <div className="btn-group">
                     <button type="button" className="btn btn-secondary">{'Select League'}</button>
                     <button type="button" className="btn btn-secondary dropdown-toggle dropdown-toggle-split"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
+                            onClick={()=>{setListShow(!listShow)}}
+                    >
                         <span className="sr-only">Toggle Dropdown</span>
                     </button>
-                    <ul className="dropdown-menu show">
-
+                    <ul className={"dropdown-menu" + ((listShow) ? " show" : " ")}>
                         {
-                            leagues.map( (lig) => {
+                            props.leagues.map( (lig) => {
                             return <li key={lig.id} className="dropdown-item" >{lig.name}</li>
                             })
                         }
 
                         <li className="dropdown-divider"></li>
                         <li className="dropdown-item" >All Leagues</li>
-
                     </ul>
                 </div>
                 <button className="btn btn-outline-light rounded-circle">
@@ -62,4 +67,16 @@ const MenuTeamSelect: React.FC<MenuTeamType> = ({closeMenu}) => {
     )
 }
 
-export default MenuTeamSelect
+const mapDispatchToProps = (state: RootStateType) => {
+    return {
+        leagues: state.teamSelect.topSix,
+        currentTeam: state.teamSelect.currentTeamId,
+        currentLeague: state.teamSelect.currentLeagueId,
+        teams: state.teamSelect.teams
+    }
+}
+
+const connector = connect(mapDispatchToProps, {})
+type ReduxProps = ConnectedProps<typeof connector>
+
+export default connector(MenuTeamSelect)

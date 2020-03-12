@@ -1,10 +1,9 @@
 import * as React from 'react';
-import {connect} from "react-redux";
+import {connect, ConnectedProps} from "react-redux";
 
 import {RootStateType} from "../../store";
 import TournamentVariantSelect from "../creator-elements/TournamenTypeSelect";
-import {setGroupsCount, setVariantOfTournament} from "../../store/reducers/create-tournament/create-tournament-reducer";
-import {ITournament, TournamentVariants} from "../../store/IStore";
+import {setGroupsCount, setVariantOfTournament} from "../../store/reducers/actions"
 import Button from "../instruments/Button/Button";
 import Header from "../header/Header";
 
@@ -17,15 +16,7 @@ import GroupsConfigure from './GroupsConfigurate'
             </div>
  */
 
-
-type CreatorContainerProps = {
-    variantOfTournament: TournamentVariants
-    setVariantOfTournament: typeof setVariantOfTournament
-    tournament: ITournament
-    setGroupsCount: typeof setGroupsCount
-}
-
-const CreatorContainer: React.FC<CreatorContainerProps> = (props) => {
+const CreatorContainer: React.FC<PropsFromRedux> = (props) => {
 
 /* React.useEffect(()=> { },[])*/
     return(
@@ -50,4 +41,7 @@ const CreatorContainer: React.FC<CreatorContainerProps> = (props) => {
      tournament: state.createTournament.tournament
  })
 
-export default connect(mapStateToProps, {setVariantOfTournament, setGroupsCount})(CreatorContainer)
+const connector = connect(mapStateToProps, {setVariantOfTournament, setGroupsCount})
+type PropsFromRedux = ConnectedProps<typeof connector>
+
+export default connector(CreatorContainer)

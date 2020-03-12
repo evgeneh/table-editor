@@ -1,10 +1,10 @@
 import {IAuth} from "../../IStore"
-import {AuthActionType, SET_AUTH} from "./action-types";
+import {AuthActionType, SET_AUTH} from "../action-types";
 
 let initialState :IAuth = {
     myId: null,
     login: '',
-    isAuth: true
+    isAuth: false
 }
 
 export const authReducer = (state = initialState, action: AuthActionType ): IAuth => {
@@ -17,7 +17,4 @@ export const authReducer = (state = initialState, action: AuthActionType ): IAut
     return state
 }
 
-export const setAuth = (login: string, myId: number) => {
-    return {type: SET_AUTH, login, myId, isAuth: true}
-}
 

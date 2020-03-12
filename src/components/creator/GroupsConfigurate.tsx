@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import {setGroupsCount, setVariantOfTournament} from "../../store/reducers/create-tournament/create-tournament-reducer";
+import {setGroupsCount} from "../../store/reducers/actions";
 import {ITournament, TournamentVariants} from "../../store/IStore";
 
 import {CreateTableBadgeHeader, CreateTableBadgeItem} from './creator-items/GroupsConfigurateItems'

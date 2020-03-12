@@ -32,3 +32,25 @@ export interface IAuth {
     myId: number | null
 }
 
+//interfaces for team select
+//---------------------------
+export interface ITeamSelect {
+    id: number
+    name: string
+    badge: string | null
+}
+
+export interface ILeagueSelect {
+    id: number
+    name: string
+    country?: string | null
+    badge?: string | null
+}
+
+export interface ITeamSelectState {
+    topSix: Array<ILeagueSelect>
+    teams: Array<ITeamSelect> | null
+    currentLeagueId: number | null
+    currentTeamId: number | null
+    leagues: Array<ILeagueSelect>
+}

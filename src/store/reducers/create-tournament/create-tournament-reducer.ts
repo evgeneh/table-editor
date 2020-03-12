@@ -1,5 +1,10 @@
 import {ICreateTournamentState, IGroup, ITeam, TournamentVariants} from "../../IStore"
-import {ADD_TOURNAMENT_NAME, CreateTournamentActionType, SET_GROUPS_COUNT, SET_TOURNAMENT_TYPE} from "./action-types";
+import {
+    CreateTournamentActionType,
+    ADD_TOURNAMENT_NAME,
+    SET_GROUPS_COUNT,
+    SET_TOURNAMENT_TYPE
+} from "../action-types";
 
 let initialGroup: IGroup =  {
     groupId: 0,
@@ -58,12 +63,3 @@ export const createTournamentReducer = (state = initialState, action: CreateTour
 
     return state
 }
-
-export const setVariantOfTournament = (variantOfTournament: TournamentVariants) => {
-    return {type: SET_TOURNAMENT_TYPE, variantOfTournament}
-}
-
-export const setGroupsCount = (groupsCount: number) => {
-    return {type: SET_GROUPS_COUNT, groupsCount}
-}
-

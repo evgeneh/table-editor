@@ -6,7 +6,7 @@ import Row from "../styled/Row";
 import LoginRegister from "./LoginRegister";
 import {Section} from "../styled/Styled"
 import {connect} from "react-redux";
-import {setAuth} from "../../store/reducers/auth/auth-reducer";
+import {setAuth} from "../../store/reducers/actions"
 
 type RegisterPropType = {
     setAuth: typeof setAuth
