@@ -1,6 +1,7 @@
 import {TournamentVariants} from '../IStore'
 
 export const SET_AUTH = 'SET_AUTH'
+export const SET_INITIALIZE_SUCCESS = 'SET_INITIALIZE_SUCCESS'
 
 export const ADD_TOURNAMENT_NAME = 'ADD_TOURNAMENT_NAME'
 export const SET_TOURNAMENT_TYPE = 'SET_TOURNAMENT_TYPE'
@@ -41,6 +42,13 @@ interface SetAuthAction {
     login: string
     isAuth: boolean
 }
-export type AuthActionType = SetAuthAction
+
+interface SetInitializeSuccess {
+    type: typeof SET_INITIALIZE_SUCCESS
+    isAuth: boolean
+    login: string
+}
+
+export type AuthActionType = SetAuthAction | SetInitializeSuccess
 
 

@@ -10,11 +10,7 @@ import Header from "../header/Header";
 import GroupsConfigure from './GroupsConfigurate'
 
 //example loading spinner
-/*
-<div className="spinner-border text-success" role="status">
-                <span className="sr-only">Loading...</span>
-            </div>
- */
+
 
 const CreatorContainer: React.FC<PropsFromRedux> = (props) => {
 

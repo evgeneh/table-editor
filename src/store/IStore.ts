@@ -30,6 +30,7 @@ export interface IAuth {
     isAuth: boolean
     login: string
     myId: number | null
+    isInitialize: boolean
 }
 
 //interfaces for team select

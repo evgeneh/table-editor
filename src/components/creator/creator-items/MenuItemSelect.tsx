@@ -10,6 +10,7 @@ import {setCurrentLeague} from "../../../store/reducers/actions";
 const MenuHiddenBody = styled.div`
     position: fixed;
     top: 0;
+    left: 0;
     background: transparent;
     width: 99%;
     height: 99%;

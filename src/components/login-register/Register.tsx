@@ -15,6 +15,7 @@ type RegisterPropType = {
 const Register: React.FC<RegisterPropType> = ({setAuth}) => {
 
     const  handleRegister = (login: string, myId: number) => {
+        localStorage.setItem('TABLE-EDITOR', login)
         setAuth(login, myId)
     }
 
