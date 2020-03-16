@@ -28,15 +28,15 @@ export const CreateTableBadgeItem: React.FC<CreateTableBadgeItemType> = ({badge,
 
     return (
         <>
-            {isSelectorShow && <MenuTeamSelect closeMenu={showSelector}/>}
-            <div className='list-group-item align-items-xl-start'>
 
-                <button className="btn btn-outline-light rounded-circle">
-                    <img src={plus} alt="" width="30" height="32" title="Bootstrap"/>
-                </button>
+            <div className='list-group-item align-items-xl-start'>
+                {isSelectorShow && <MenuTeamSelect closeMenu={showSelector}/>}
                 <button className="btn btn-outline-light rounded-circle"
                         onClick={()=>{showSelector(true)}}
                 >
+                    <img src={plus} alt="" width="30" height="32" title="Bootstrap"/>
+                </button>
+                <button className="btn btn-outline-light rounded-circle" >
                     <img src={pen} alt="" width="30" height="32" title="Bootstrap"/>
                 </button>
                 <span className='glyph-icon glyph icon-star'>{badge || <i>&nbsp; team is not selected!</i>}</span>

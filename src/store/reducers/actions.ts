@@ -3,10 +3,11 @@ import {
     SET_CURRENT_LEAGUE,
     SET_GROUPS_COUNT,
     SET_TOURNAMENT_TYPE,
-    SET_INITIALIZE_SUCCESS
+    SET_INITIALIZE_SUCCESS,
+    SET_TEAMS_LIST, SET_CURRENT_TEAM
 } from './action-types'
 
-import {TournamentVariants} from "../IStore";
+import {ITeamSelect, TournamentVariants} from "../IStore";
 
 //-----set auth action creators----
 export const setAuth = (login: string, myId: number) => {
@@ -30,6 +31,13 @@ export const setCurrentLeague = (id: number) => {
    return {type: SET_CURRENT_LEAGUE, id}
 }
 
+export const setCurrentTeam = (id: number) => {
+    return {type: SET_CURRENT_TEAM, id}
+}
+
+export const SetTeamsList = (teams: Array<ITeamSelect>) => {
+    return {type: SET_TEAMS_LIST, teams}
+}
 
 
 

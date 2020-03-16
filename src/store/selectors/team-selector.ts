@@ -12,3 +12,16 @@ const getCurrentLigId= (state: RootStateType) => {
 export const getCurrentLeague = createSelector(getLeagues, getCurrentLigId, (leagues, currentId) => {
     return leagues.find( (lig) => (lig.id === currentId))
 })
+
+const getTeams = (state: RootStateType) => {
+    return state.teamSelect.teams
+}
+
+const getCurrentTeamId= (state: RootStateType) => {
+    return state.teamSelect.currentTeamId
+}
+
+export const getCurrentTeam = createSelector(getTeams, getCurrentTeamId, (teams, currentId) => {
+    if (! teams) return null
+    return teams.find( (team) => (team.id === currentId))
+})
