@@ -11,7 +11,7 @@ import Row from '../styled/Row'
 import styled from "styled-components";
 
 const TableEditor = styled.div`
-  width: 400px;
+  width: 370px;
   padding: 20px 0;
 `
 
@@ -30,14 +30,12 @@ const GroupsConfigure: React.FC<GroupsConfigureProps> = ({tournament, variant, s
         return (
             <Row>
                 <Col col='col__fr'>
-
                     <h3>Select tournament name and groups count</h3>
                     <div>
                         <span>Groups count:&nbsp;&nbsp;</span>
                         <input type='number' min='2' max='32'
                                value={tournament.groupsCount} onChange={handleChange}
                         />
-
                     </div>
                 </Col>
                 <Col col='col__fr2'>
@@ -51,7 +49,8 @@ const GroupsConfigure: React.FC<GroupsConfigureProps> = ({tournament, variant, s
                                         {
                                             group.teams.map( (team, index)=> {
                                                     if (index < group.teamsCount)
-                                                        return <CreateTableBadgeItem key={index} badge={team?.badge || null} name={team?.name || null} />
+                                                        return <CreateTableBadgeItem key={index} groupId={group.groupId} teamPos={index}
+                                                                                     badge={team?.badge || null} name={team?.name || null} />
                                                 }
                                             )
                                         }

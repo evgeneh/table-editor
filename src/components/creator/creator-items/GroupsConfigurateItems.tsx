@@ -20,17 +20,22 @@ export const CreateTableBadgeHeader: React.FC<CreateTableBadgeHType> = ({groupNa
 
 
 type CreateTableBadgeItemType = {
+    groupId: number
+    teamPos: number
     badge: string | null,
     name: string | null
 }
-export const CreateTableBadgeItem: React.FC<CreateTableBadgeItemType> = ({badge, name}) => {
+export const CreateTableBadgeItem: React.FC<CreateTableBadgeItemType> = ({badge, name, groupId, teamPos}) => {
     const [isSelectorShow, showSelector] = React.useState<boolean>(false)
 
     return (
         <>
 
             <div className='list-group-item align-items-xl-start'>
-                {isSelectorShow && <MenuTeamSelect closeMenu={showSelector}/>}
+                {isSelectorShow && <MenuTeamSelect closeMenu={showSelector}
+                                                   groupId={groupId}
+                                                   teamPos={teamPos}
+                />}
                 <button className="btn btn-outline-light rounded-circle"
                         onClick={()=>{showSelector(true)}}
                 >
@@ -39,7 +44,7 @@ export const CreateTableBadgeItem: React.FC<CreateTableBadgeItemType> = ({badge,
                 <button className="btn btn-outline-light rounded-circle" >
                     <img src={pen} alt="" width="30" height="32" title="Bootstrap"/>
                 </button>
-                <span className='glyph-icon glyph icon-star'>{badge || <i>&nbsp; team is not selected!</i>}</span>
+                <span className='glyph-icon glyph icon-star'>{name || <i>&nbsp; team is not selected!</i>}</span>
                 <span className='text-white'>name</span>
             </div>
         </>

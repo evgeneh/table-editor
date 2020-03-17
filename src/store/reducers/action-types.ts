@@ -6,6 +6,7 @@ export const SET_INITIALIZE_SUCCESS = 'SET_INITIALIZE_SUCCESS'
 export const ADD_TOURNAMENT_NAME = 'ADD_TOURNAMENT_NAME'
 export const SET_TOURNAMENT_TYPE = 'SET_TOURNAMENT_TYPE'
 export const SET_GROUPS_COUNT = 'SET_GROUPS_COUNT'
+export const ADD_TEAM_TO_GROUP = 'ADD_TEAM_TO_GROUP'
 
 export const SET_CURRENT_LEAGUE = 'SET_CURRENT_LEAGUE'
 export const SET_TEAMS_LIST = 'SET_TEAMS_LIST'
@@ -27,7 +28,14 @@ export interface setVariantOfTournamentAction {
     variantOfTournament: TournamentVariants
 }
 
-export type CreateTournamentActionType = AddTournamentNameAction | SetGroupsCountAction | setVariantOfTournamentAction
+export interface addTeamToGroupActionType {
+    type: typeof ADD_TEAM_TO_GROUP
+    team: ITeamSelect
+    groupId: number
+    teamPos: number
+}
+
+export type CreateTournamentActionType = AddTournamentNameAction | SetGroupsCountAction | setVariantOfTournamentAction | addTeamToGroupActionType
 
 //select league and team action type
 export interface setCurrentLeague {

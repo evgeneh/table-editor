@@ -5,7 +5,7 @@ import styled from 'styled-components'
 import {RootStateType} from "../../../store";
 import {connect, ConnectedProps} from "react-redux";
 import {getCurrentLeague, getCurrentTeam} from "../../../store/selectors/team-selector";
-import {setCurrentLeague, setCurrentTeam, SetTeamsList} from "../../../store/reducers/actions";
+import {setCurrentLeague, setCurrentTeam, SetTeamsList, addTeamToGroup} from "../../../store/reducers/actions";
 import {useEffect} from "react";
 import {getTeamsByLeague} from "../../../api/creator-api";
 
@@ -23,6 +23,7 @@ const MenuHiddenBody = styled.div`
 
 const SelectTeamSplash = styled.div`
     background: white;
+    white-space: nowrap;
     position: absolute;
     padding: 4px;
     border-radius: 3px;
@@ -36,11 +37,13 @@ const SelectTeamSplash = styled.div`
 
 type MenuTeamType = {
     closeMenu: (isShow: boolean) => void
+    groupId: number
+    teamPos: number
 }
 
 let initialMenuState = {league: false, team: false}
 
-const MenuTeamSelect: React.FC<MenuTeamType & ReduxProps> = ({closeMenu, ...props}) => {
+const MenuTeamSelect: React.FC<MenuTeamType & ReduxProps> = ({closeMenu, groupId, teamPos, ...props}) => {
     const [listShow, setListShow] = React.useState(initialMenuState)
 
     const toggleSetupLists = (type: 'league' | 'team', value: boolean) => {
@@ -50,7 +53,7 @@ const MenuTeamSelect: React.FC<MenuTeamType & ReduxProps> = ({closeMenu, ...prop
             setListShow({...initialMenuState, [type]: true})
     }
 
-    const handleItemSelect = (type: 'league' | 'team', id :number) => {
+    const handleItemSelect = (type: 'league' | 'team', id: number) => {
         if (type === 'league')
             props.setCurrentLeague(id)
         else
@@ -58,13 +61,19 @@ const MenuTeamSelect: React.FC<MenuTeamType & ReduxProps> = ({closeMenu, ...prop
         toggleSetupLists(type, false)
     }
 
+    const addTeamHandle = () => {
+        if (props.currentTeam) {
+            closeMenu(false)
+            props.addTeamToGroup(props.currentTeam, groupId, teamPos)
+        }
+    }
+
     //
-    useEffect(()=> {
+    useEffect(() => {
         if (props.currentLeague) {
             let teams = getTeamsByLeague(props.currentLeague.id)
             if (teams) {
                 props.SetTeamsList(teams)
-
             }
         }
     }, [props.currentLeague?.id])
@@ -76,23 +85,25 @@ const MenuTeamSelect: React.FC<MenuTeamType & ReduxProps> = ({closeMenu, ...prop
             }}/>
             <SelectTeamSplash>
                 <div className="btn-group blocks">
-                    <button type="button" className="btn btn-secondary">{props.currentLeague?.name || 'Select League'}</button>
+                    <button type="button"
+                            className="btn btn-secondary">
+                        {props.currentLeague?.name || 'Select League'}
+                    </button>
                     <button type="button" className="btn btn-secondary dropdown-toggle dropdown-toggle-split"
                             data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"
-                            onClick={ () => { toggleSetupLists('league', ! listShow.league)} }
+                            onClick={toggleSetupLists.bind(null, 'league', !listShow.league)}
                     >
                         <span className="sr-only">Toggle Dropdown</span>
                     </button>
                     <ul className={"dropdown-menu" + ((listShow.league) ? " show" : " ")}>
                         {
-                            props.leagues.map( (lig) => {
-                            return <li key={lig.id} className="dropdown-item"
-                                       onClick={ handleItemSelect.bind(null, 'league', lig.id) }
+                            props.leagues.map((lig) => {
+                                return <li key={lig.id} className="dropdown-item"
+                                           onClick={handleItemSelect.bind(null, 'league', lig.id)}
 
-                            >{lig.name}</li>
+                                >{lig.name}</li>
                             })
                         }
-
                         <li className="dropdown-divider"></li>
                         <li className="dropdown-item">All Leagues &#9658;</li>
 
@@ -100,15 +111,17 @@ const MenuTeamSelect: React.FC<MenuTeamType & ReduxProps> = ({closeMenu, ...prop
                 </div>
                 {
                     (props.teams) &&
-                        <TeamsListDropSelect setListShow={toggleSetupLists}
-                                             teams={props.teams}
-                                             currentTeam={props.currentTeam}
-                                             setCurrentTeam={handleItemSelect}
-                                             teamsListShow={listShow.team}
-                        />
+                    <TeamsListDropSelect setListShow={toggleSetupLists}
+                                         teams={props.teams}
+                                         currentTeam={props.currentTeam}
+                                         setCurrentTeam={handleItemSelect}
+                                         teamsListShow={listShow.team}
+                    />
 
                 }
-                <button className="btn btn-outline-light rounded-circle">
+                <button className="btn btn-outline-light rounded-circle"
+                        onClick={addTeamHandle}
+                >
                     <img src={plus} alt="" width="30" height="32" title="Bootstrap"/>
                 </button>
             </SelectTeamSplash>
@@ -125,7 +138,7 @@ const mapDispatchToProps = (state: RootStateType) => {
     }
 }
 
-const connector = connect(mapDispatchToProps, {setCurrentLeague, setCurrentTeam, SetTeamsList})
+const connector = connect(mapDispatchToProps, {setCurrentLeague, setCurrentTeam, SetTeamsList, addTeamToGroup})
 type ReduxProps = ConnectedProps<typeof connector>
 
 export default connector(MenuTeamSelect)

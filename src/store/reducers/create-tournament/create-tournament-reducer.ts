@@ -1,9 +1,9 @@
-import {ICreateTournamentState, IGroup, ITeam, TournamentVariants} from "../../IStore"
+import {ICreateTournamentState, IGroup, ITeamSelect, TournamentVariants} from "../../IStore"
 import {
     CreateTournamentActionType,
     ADD_TOURNAMENT_NAME,
     SET_GROUPS_COUNT,
-    SET_TOURNAMENT_TYPE
+    SET_TOURNAMENT_TYPE, ADD_TEAM_TO_GROUP
 } from "../action-types";
 
 let initialGroup: IGroup =  {
@@ -59,6 +59,17 @@ export const createTournamentReducer = (state = initialState, action: CreateTour
             else if (action.variantOfTournament === TournamentVariants.PO_GR)
                 groupCount = 2
             return {...state, variantOfTournament: action.variantOfTournament, tournament: {...state.tournament, groupsCount: groupCount}}
+        case ADD_TEAM_TO_GROUP:
+
+            let id = action.groupId
+            let t = {...state.tournament.groups[id], teams: [...state.tournament.groups[id].teams]}
+            t.teams[action.teamPos] = action.team
+            console.log(t)
+            let newState = {...state, tournament: { ...state.tournament, groups: Object.assign([...state.tournament.groups], {[id]: {
+                            ...state.tournament.groups[id], teams: Object.assign([...state.tournament.groups[id].teams],{ [action.teamPos]: action.team})
+            }}) }}
+
+            return newState
     }
 
     return state

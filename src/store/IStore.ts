@@ -1,13 +1,9 @@
-export interface ITeam {
-    name: string;
-    badge: string | null
-}
 
 export interface IGroup {
     groupId: number;
     teamsCount: number;
     teamsGoToPlayOff: number;
-    teams: Array<ITeam | null>
+    teams: Array<ITeamSelect | null>
 }
 
 export interface ITournament {
