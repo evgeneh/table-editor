@@ -4,7 +4,7 @@ import plus from 'bootstrap-icons/icons/plus.svg'
 import styled from 'styled-components'
 import {RootStateType} from "../../../store";
 import {connect, ConnectedProps} from "react-redux";
-import {getCurrentLeague, getCurrentTeam} from "../../../store/selectors/team-selector";
+import {getCurrentLeague, getCurrentTeam, getTeamsNoDuplicate} from "../../../store/selectors/team-selector";
 import {setCurrentLeague, setCurrentTeam, SetTeamsList, addTeamToGroup} from "../../../store/reducers/actions";
 import {useEffect} from "react";
 import {getTeamsByLeague} from "../../../api/creator-api";
@@ -65,6 +65,7 @@ const MenuTeamSelect: React.FC<MenuTeamType & ReduxProps> = ({closeMenu, groupId
         if (props.currentTeam) {
             closeMenu(false)
             props.addTeamToGroup(props.currentTeam, groupId, teamPos)
+            props.setCurrentTeam(null)
         }
     }
 
@@ -134,7 +135,7 @@ const mapDispatchToProps = (state: RootStateType) => {
         leagues: state.teamSelect.topSix,
         currentTeam: getCurrentTeam(state),
         currentLeague: getCurrentLeague(state),
-        teams: state.teamSelect.teams
+        teams: getTeamsNoDuplicate(state)//state.teamSelect.teams
     }
 }
 

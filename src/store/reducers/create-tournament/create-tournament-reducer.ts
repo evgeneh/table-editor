@@ -46,8 +46,9 @@ export const createTournamentReducer = (state = initialState, action: CreateTour
             let groups = state.tournament.groups ;
             if (action.groupsCount > state.tournament.groupsCount)
             {
-                groups.push(initialGroup)
-                groups[groups.length-1].groupId = groups.length
+                let init = {...initialGroup, groupId: groups.length }
+                groups.push(init)
+                //groups[groups.length-1].groupId = groups.length
             }
             return {...state, tournament: { ...state.tournament, groupsCount: action.groupsCount, groups: groups} }
         case SET_TOURNAMENT_TYPE:
@@ -60,11 +61,7 @@ export const createTournamentReducer = (state = initialState, action: CreateTour
                 groupCount = 2
             return {...state, variantOfTournament: action.variantOfTournament, tournament: {...state.tournament, groupsCount: groupCount}}
         case ADD_TEAM_TO_GROUP:
-
             let id = action.groupId
-            let t = {...state.tournament.groups[id], teams: [...state.tournament.groups[id].teams]}
-            t.teams[action.teamPos] = action.team
-            console.log(t)
             let newState = {...state, tournament: { ...state.tournament, groups: Object.assign([...state.tournament.groups], {[id]: {
                             ...state.tournament.groups[id], teams: Object.assign([...state.tournament.groups[id].teams],{ [action.teamPos]: action.team})
             }}) }}

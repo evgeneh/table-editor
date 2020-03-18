@@ -36,7 +36,7 @@ export const setCurrentLeague = (id: number) => {
    return {type: SET_CURRENT_LEAGUE, id}
 }
 
-export const setCurrentTeam = (id: number) => {
+export const setCurrentTeam = (id: number | null) => {
     return {type: SET_CURRENT_TEAM, id}
 }
 
