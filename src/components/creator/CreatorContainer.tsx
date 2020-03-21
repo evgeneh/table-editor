@@ -9,9 +9,6 @@ import Header from "../header/Header";
 
 import GroupsConfigure from './GroupsConfigurate'
 
-//example loading spinner
-
-
 const CreatorContainer: React.FC<PropsFromRedux> = (props) => {
 
 /* React.useEffect(()=> { },[])*/
