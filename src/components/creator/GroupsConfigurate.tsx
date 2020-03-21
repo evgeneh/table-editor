@@ -9,6 +9,7 @@ import Col from '../styled/Col'
 import Row from '../styled/Row'
 
 import styled from "styled-components";
+import CreateTableBadgeSettings from "./creator-items/CreateTableBadgeSettings";
 
 const TableEditor = styled.div`
   width: 370px;
@@ -22,8 +23,19 @@ type GroupsConfigureProps = {
 }
 
 const GroupsConfigure: React.FC<GroupsConfigureProps> = ({tournament, variant, setGroupsCount}) => {
+
     const handleChange = (e: React.FormEvent<HTMLInputElement>) => {
         setGroupsCount(parseInt(e.currentTarget.value))
+    }
+
+    const [groupsWithOpenSettings, setGroupsWithOpenSettings] = React.useState<Array<number>>([])
+
+    const ToggleSettings = (groupId: number) => {
+        setGroupsWithOpenSettings((prev) => {
+            if (prev.includes(groupId))
+                return prev.filter((id) => id != groupId)
+            else return [...prev, groupId]
+        })
     }
 
     if (variant === TournamentVariants.PO_GR)
@@ -45,7 +57,10 @@ const GroupsConfigure: React.FC<GroupsConfigureProps> = ({tournament, variant, s
                             return (
                                 <TableEditor key={group.groupId}>
                                     <div className='list-group'>
-                                        <CreateTableBadgeHeader groupName={'Group ' + (groupIndex + 1)}/>
+                                        <CreateTableBadgeHeader groupName={'Group ' + (groupIndex + 1)}
+                                                                ToggleSettings = {ToggleSettings.bind(null,group.groupId)}
+                                        />
+                                        {(groupsWithOpenSettings.includes(group.groupId)) && <CreateTableBadgeSettings />}
                                         {
                                             group.teams.map( (team, index)=> {
                                                     if (index < group.teamsCount)

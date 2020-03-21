@@ -14,15 +14,15 @@ const GroupName = styled.span`
 
 type CreateTableBadgeHType = {
     groupName: string
-    //setSettingsShow: () => void
+    ToggleSettings: () => void
 }
-export const CreateTableBadgeHeader: React.FC<CreateTableBadgeHType> = ({groupName}) => {
+export const CreateTableBadgeHeader: React.FC<CreateTableBadgeHType> = ({groupName, ToggleSettings}) => {
     return (
 
         <div className='list-group-item-active bg-success rounded-top'>
             <span className='glyphicon glyph icon-star'></span>
             <GroupName>{groupName}</GroupName>
-            <button className="btn btn-success btn-xs" >
+            <button className="btn btn-success btn-xs" onClick={() => ToggleSettings()}>
                 <img src={cog} alt="" width="28" height="28" title="Bootstrap"/>
             </button>
         </div>
@@ -39,7 +39,6 @@ type CreateTableBadgeItemType = {
 }
 export const CreateTableBadgeItem: React.FC<CreateTableBadgeItemType> = ({badge, name, groupId, teamPos}) => {
     const [isSelectorShow, showSelector] = React.useState<boolean>(false)
-    const [isSettingsShow, setSettingsShow] = React.useState<boolean>(false)
 
     return (
         <>
@@ -63,3 +62,4 @@ export const CreateTableBadgeItem: React.FC<CreateTableBadgeItemType> = ({badge,
         </>
     )
 }
+
