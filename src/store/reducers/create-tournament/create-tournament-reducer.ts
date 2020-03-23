@@ -21,8 +21,8 @@ let initialState : ICreateTournamentState = {
             {
                 groupId: 0,
                 teamsCount: 4,
-                 teamsGoToPlayOff: 2,
-                 teams: [null, null, null, null]
+                teamsGoToPlayOff: 2,
+                teams: [null, null, null, null]
             },
             {
                 groupId: 1,
@@ -67,6 +67,21 @@ export const createTournamentReducer = (state = initialState, action: CreateTour
             }}) }}
 
             return newState
+        case "SET_TEAMS_COUNT":
+            let newGroups = state.tournament.groups.map((group) => {
+                if (group.groupId === action.groupId) {
+
+                    let sizeDiff = action.teamsCount- group.teams.length
+                    if (sizeDiff > 0)
+                    {
+                        const teams =  group.teams.concat(Array(sizeDiff).fill(null))
+                        return {...group, teams: teams, teamsCount: action.teamsCount, teamsGoToPlayOff: action.toPlayOffCount}
+                    }
+                    else return {...group, teamsCount: action.teamsCount, teamsGoToPlayOff: action.toPlayOffCount}
+                }
+                return group
+            })
+            return {...state, tournament: {...state.tournament, groups: newGroups}}
     }
 
     return state

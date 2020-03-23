@@ -3,6 +3,7 @@ import {
     SET_CURRENT_LEAGUE,
     SET_GROUPS_COUNT,
     SET_TOURNAMENT_TYPE,
+    SET_TEAMS_COUNT,
     SET_INITIALIZE_SUCCESS,
     SET_TEAMS_LIST, SET_CURRENT_TEAM, ADD_TEAM_TO_GROUP
 } from './action-types'
@@ -29,6 +30,10 @@ export const setVariantOfTournament = (variantOfTournament: TournamentVariants) 
 
 export const addTeamToGroup = (team: ITeamSelect,  groupId: number, teamPos: number) => {
     return {type: ADD_TEAM_TO_GROUP, team, groupId, teamPos}
+}
+
+export const setTeamsCount = (groupId: number, teamsCount: number, toPlayOffCount: number) => {
+    return { type: SET_TEAMS_COUNT, groupId, teamsCount, toPlayOffCount}
 }
 
 //-------team and league selection

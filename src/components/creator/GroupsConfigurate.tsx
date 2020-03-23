@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {setGroupsCount} from "../../store/reducers/actions";
-import {ITournament, TournamentVariants} from "../../store/IStore";
+import {IGroup, ITournament, TournamentVariants} from "../../store/IStore";
 
 import {CreateTableBadgeHeader, CreateTableBadgeItem} from './creator-items/GroupsConfigurateItems'
 
@@ -16,6 +16,31 @@ const TableEditor = styled.div`
   padding: 20px 0;
 `
 
+type TableEditorGroup = {
+    group: IGroup
+    children: React.ReactNode
+}
+
+const TableEditorGroup: React.FC<TableEditorGroup> = ({group, children}) => {
+    return (
+        <TableEditor key={group.groupId}>
+            <div className='list-group'>
+
+                {children}
+                {
+                    group.teams.map( (team, index)=> {
+                            if (index < group.teamsCount)
+                                return <CreateTableBadgeItem key={index} groupId={group.groupId} teamPos={index}
+                                                             badge={team?.badge || null} name={team?.name || null} />
+                        }
+                    )
+                }
+            </div>
+        </TableEditor>
+    )
+}
+
+
 type GroupsConfigureProps = {
     variant: TournamentVariants
     tournament: ITournament
@@ -28,6 +53,7 @@ const GroupsConfigure: React.FC<GroupsConfigureProps> = ({tournament, variant, s
         setGroupsCount(parseInt(e.currentTarget.value))
     }
 
+    //set an array of groups with opened settings blocks
     const [groupsWithOpenSettings, setGroupsWithOpenSettings] = React.useState<Array<number>>([])
 
     const ToggleSettings = (groupId: number) => {
@@ -54,26 +80,19 @@ const GroupsConfigure: React.FC<GroupsConfigureProps> = ({tournament, variant, s
                     {
                         tournament.groups.map((group, groupIndex) => {
                             if (groupIndex < tournament.groupsCount)
-                            return (
-                                <TableEditor key={group.groupId}>
-                                    <div className='list-group'>
+                                return (
+                                    <TableEditorGroup group={group}>
                                         <CreateTableBadgeHeader groupName={'Group ' + (groupIndex + 1)}
-                                                                ToggleSettings = {ToggleSettings.bind(null,group.groupId)}
+                                                                ToggleSettings = {ToggleSettings.bind(null, group.groupId)}
                                         />
-                                        {(groupsWithOpenSettings.includes(group.groupId)) && <CreateTableBadgeSettings />}
                                         {
-                                            group.teams.map( (team, index)=> {
-                                                    if (index < group.teamsCount)
-                                                        return <CreateTableBadgeItem key={index} groupId={group.groupId} teamPos={index}
-                                                                                     badge={team?.badge || null} name={team?.name || null} />
-                                                }
-                                            )
+                                            (groupsWithOpenSettings.includes(group.groupId)) &&
+                                            <CreateTableBadgeSettings {...group}/>
                                         }
-                                    </div>
-                                </TableEditor>)
+                                    </TableEditorGroup>
+                                )
                         })
                     }
-
                 </Col>
             </Row>
         )

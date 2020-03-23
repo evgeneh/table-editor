@@ -7,6 +7,7 @@ export const ADD_TOURNAMENT_NAME = 'ADD_TOURNAMENT_NAME'
 export const SET_TOURNAMENT_TYPE = 'SET_TOURNAMENT_TYPE'
 export const SET_GROUPS_COUNT = 'SET_GROUPS_COUNT'
 export const ADD_TEAM_TO_GROUP = 'ADD_TEAM_TO_GROUP'
+export const SET_TEAMS_COUNT = 'SET_TEAMS_COUNT'
 
 export const SET_CURRENT_LEAGUE = 'SET_CURRENT_LEAGUE'
 export const SET_TEAMS_LIST = 'SET_TEAMS_LIST'
@@ -35,7 +36,15 @@ export interface addTeamToGroupActionType {
     teamPos: number
 }
 
-export type CreateTournamentActionType = AddTournamentNameAction | SetGroupsCountAction | setVariantOfTournamentAction | addTeamToGroupActionType
+export interface SetTeamsCountActionType {
+    type: typeof SET_TEAMS_COUNT
+    groupId: number
+    teamsCount: number
+    toPlayOffCount: number
+}
+
+export type CreateTournamentActionType = AddTournamentNameAction | SetGroupsCountAction | setVariantOfTournamentAction
+    | addTeamToGroupActionType | SetTeamsCountActionType
 
 //select league and team action type
 export interface setCurrentLeague {
@@ -52,6 +61,7 @@ export interface SetTeamsListActionType {
     type: typeof SET_TEAMS_LIST
     teams: Array<ITeamSelect>
 }
+
 
 export type TeamSelectActionType = setCurrentLeague | setCurrentTeam | SetTeamsListActionType
 
